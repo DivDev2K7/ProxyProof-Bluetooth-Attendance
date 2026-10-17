@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "ProxyProof",
+    "slug": "proxyproof",
+    "scheme": "proxyproof",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#050507"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.proxyproof.attendance"
+    },
+    "android": {
+      "package": "com.proxyproof.attendance",
+      "edgeToEdgeEnabled": true
+    },
+    "plugins": [
+      "expo-asset"
+    ]
+  }
+}
