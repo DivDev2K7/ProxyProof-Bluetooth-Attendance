@@ -5,13 +5,16 @@
   "main": "expo/AppEntry",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "typecheck": "tsc --noEmit"
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "typecheck": "tsc --noEmit",
+    "test:ble": "tsx --test src/ble/totp.test.ts",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.4.1",
     "@expo/vector-icons": "^14.1.0",
+    "@noble/hashes": "^1.8.0",
     "@react-navigation/bottom-tabs": "^7.3.10",
     "@react-navigation/native": "^7.1.6",
     "expo": "~53.0.0",
@@ -20,14 +23,18 @@
     "expo-haptics": "~14.1.4",
     "expo-linear-gradient": "~14.1.5",
     "expo-status-bar": "~2.2.3",
+    "expo-system-ui": "~5.0.11",
     "react": "19.0.0",
     "react-native": "0.79.6",
+    "react-native-ble-advertiser": "^0.0.17",
     "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.11.1"
   },
   "devDependencies": {
     "@types/react": "~19.0.10",
+    "patch-package": "^8.0.1",
+    "tsx": "^4.20.6",
     "typescript": "~5.8.3"
   }
 }

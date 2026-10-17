@@ -1,0 +1,37 @@
+diff --git a/node_modules/react-native-ble-advertiser/android/build.gradle b/node_modules/react-native-ble-advertiser/android/build.gradle
+index 2526548..ac1df93 100644
+--- a/node_modules/react-native-ble-advertiser/android/build.gradle
++++ b/node_modules/react-native-ble-advertiser/android/build.gradle
+@@ -1,8 +1,8 @@
+ apply plugin: 'com.android.library'
+ 
+ android {
+-    compileSdkVersion 28
+-    buildToolsVersion "28.0.3"
++    namespace "com.vitorpamplona.bleavertiser"
++    compileSdkVersion 35
+ 
+     defaultConfig {
+         minSdkVersion 21
+@@ -15,4 +15,3 @@ android {
+ dependencies {
+     implementation 'com.facebook.react:react-native:+'
+ }
+-
+diff --git a/node_modules/react-native-ble-advertiser/react-native.config.js b/node_modules/react-native-ble-advertiser/react-native.config.js
+index ad6b0ad..faee59e 100644
+--- a/node_modules/react-native-ble-advertiser/react-native.config.js
++++ b/node_modules/react-native-ble-advertiser/react-native.config.js
+@@ -3,9 +3,10 @@ module.exports = {
+     'react-native-ble-advertiser': {
+         platforms: {
+             android: {
+-                "packageImportPath": "import com.vitorpamplona.bleadvertiser;",
++                "packageImportPath": "import com.vitorpamplona.bleavertiser.BLEAdvertiserPackage;",
+                 "packageInstance": "new BLEAdvertiserPackage()"
+-            }
++            },
++            ios: null
+         }
+     }
+   }

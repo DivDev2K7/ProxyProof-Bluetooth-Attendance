@@ -19,7 +19,8 @@
       "edgeToEdgeEnabled": true
     },
     "plugins": [
-      "expo-asset"
+      "expo-asset",
+      "./plugins/withBleAdvertiser"
     ]
   }
 }
