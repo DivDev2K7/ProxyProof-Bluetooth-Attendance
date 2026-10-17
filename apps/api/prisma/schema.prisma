@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  STUDENT
+  ORGANIZER
+  ADMIN
+}
+
+enum SessionStatus {
+  SCHEDULED
+  ACTIVE
+  CLOSED
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  MANUAL
+}
+
+model User {
+  id                String       @id @default(uuid()) @db.Uuid
+  name              String
+  role              UserRole
+  vitEmail          String       @unique
+  deviceFingerprint String?      @unique
+  isApproved        Boolean      @default(false)
+  organizedSessions Session[]    @relation("SessionOrganizer")
+  organizedClubs    Club[]       @relation("ClubOrganizer")
+  attendances       Attendance[] @relation("StudentAttendance")
+}
+
+model Session {
+  id         String       @id @default(uuid()) @db.Uuid
+  organizerId String      @db.Uuid
+  clubName   String
+  startTime  DateTime
+  endTime    DateTime
+  status     SessionStatus @default(SCHEDULED)
+  latitude   Float
+  longitude  Float
+  organizer  User         @relation("SessionOrganizer", fields: [organizerId], references: [id], onDelete: Restrict)
+  attendance Attendance[]
+
+  @@index([organizerId, startTime])
+  @@index([status, startTime])
+}
+
+model Attendance {
+  id        String           @id @default(uuid()) @db.Uuid
+  sessionId String           @db.Uuid
+  studentId String           @db.Uuid
+  markedAt  DateTime         @default(now())
+  rssiValue Int?
+  status    AttendanceStatus @default(PRESENT)
+  session   Session          @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  student   User             @relation("StudentAttendance", fields: [studentId], references: [id], onDelete: Restrict)
+
+  @@unique([sessionId, studentId])
+  @@index([studentId, markedAt])
+}
+
+model Club {
+  id          String @id @default(uuid()) @db.Uuid
+  name        String
+  description String
+  organizerId String @db.Uuid
+  organizer   User   @relation("ClubOrganizer", fields: [organizerId], references: [id], onDelete: Restrict)
+
+  @@unique([organizerId, name])
+}
